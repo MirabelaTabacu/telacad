@@ -1,0 +1,52 @@
+CREATE TABLE Users (
+    userID int PRIMARY KEY,
+    LastName varchar(255),
+    FirstName varchar(255),
+    email varchar(255),
+    password varchar(255)
+);
+
+ CREATE TABLE OrderDetails(
+     orderID int,
+     productID int,
+     unitPrice double,
+     quantity int,
+
+ 	PRIMARY KEY(orderID, productID),
+     FOREIGN KEY (orderID) REFERENCES Orders(orderID) ON DELETE CASCADE,
+     FOREIGN KEY (productID) REFERENCES Products(productID)
+ );
+
+CREATE TABLE Orders (
+    orderID int PRIMARY KEY,
+    userID int,
+    orderDate date,
+    FOREIGN KEY (userID) REFERENCES Users(userID) ON DELETE CASCADE
+);
+
+CREATE TABLE Products(
+    productID int PRIMARY KEY,
+    name varchar(255),
+    price double
+);
+
+CREATE TABLE OrderDetails(
+    orderDetailID int PRIMARY KEY AUTO_INCREMENT,
+    orderID int,
+    productID int,
+    unitPrice double,
+    quantity int,
+    FOREIGN KEY (orderID) REFERENCES Orders(orderID) ON DELETE CASCADE,
+    FOREIGN KEY (productID) REFERENCES Products(productID)
+);
+INSERT INTO Users VALUE(null, "MARIA", "POPESCU", "maria@yahoo.com", "1234");
+INSERT INTO Users VALUE(null, "Ioana", "Ionescu", "ioana@yahoo.com", "1234");
+INSERT INTO Users VALUE(null, "Dorin", "Marin", "marin@yahoo.com", "1234");
+INSERT INTO Users VALUE(null, "David", "POPESCU", "david@yahoo.com", "1234");
+
+INSERT INTO Products (productID, name, price) VALUES
+(1, 'Chicken Sandwich', 5.99),
+(2, ' Simple Sandwich', 4.99),
+(3, 'Fried Potatoes', 2.99),
+(4, 'Cheeseburger', 6.49),
+(5, 'Caesar Salad', 4.59);
